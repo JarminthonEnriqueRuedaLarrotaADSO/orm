@@ -1,6 +1,7 @@
 <?php
 
-include_once(__DIR__."/controlador/controlador.php");
+
+
 
 ?>
 <!DOCTYPE html>
@@ -16,20 +17,20 @@ include_once(__DIR__."/controlador/controlador.php");
         <div class="row">
             <h2 class="text-center mt-3" >Agregar Usuario</h2>
             <div class="col mt-5">                
-                <form action="model/Book.php">
+                <form  action="controlador/controlador.php"  method="POST">
                 <label for="" class="form-label" >first name</label>
                 <input class="form-control" type="text" name="firstName">
                 <label for="" class="form-label">last name</label>
                 <input class="form-control" type="text" name="lastName">
                 <label for="" class="form-label">email</label>
                 <input class="form-control" type="text" name="email" >
+                <label for="" class="form-label">Document</label>
+                <input class="form-control" type="text" name="documento" >
                 <div class="mt-5" >
                     <input type="submit" class=" btn btn-danger w-100" >
                 </div>
-                </form>
-            
-            
-            <table class="table table-hover table-dark mt-5">
+                </form>                        
+            <!-- <table class="table table-hover table-dark mt-5">
                 <thead>
                     <tr>
                         <th>first Name</th>
@@ -50,11 +51,8 @@ include_once(__DIR__."/controlador/controlador.php");
             </tbody>
             
             </table>                
-            </div>
+            </div> -->
         </div>
     </div>
-
-
-
 </body>
 </html>
