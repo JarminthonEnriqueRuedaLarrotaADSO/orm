@@ -1,7 +1,14 @@
+
 <?php
-// include_once (__DIR__.'controlador/controlador.php');
+require_once __DIR__ . '/../model/User.php';
+$pdo = new PDO('mysql:host=localhost;dbname=admin_pdo', 'root', '');
 
+// Aquí se cargarán las dependencias del controlador también
 
+$usuario = new User($pdo);
+$users = $usuario->getAll();
+
+               
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,21 +28,17 @@
             </tr>
         </thead>
         <tbody>
-        <?php 
-        require_once(dirname(__FILE__).'controlador/controlador.php');
-        $users = $userModel->getAll()
-        ?>
 
-        <!-- <?php foreach ($users as $key) { ?>
+
+        <?php foreach ($users as $key) { ?>
             <tr>
                 <td><?= $key['firs_name']; ?></td>
                 <td><?= $key['last_name']; ?></td>
                 <td><?= $key['email']; ?></td>
                 <td><?= $key['cc']; ?></td>
             </tr>
-        <?php } ?> -->
-    </tbody>
-    
-    </table>                
+        <?php } ?>
+    </tbody>    
+    </table>
 </body>
 </html>

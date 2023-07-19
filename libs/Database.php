@@ -1,8 +1,6 @@
 <?php
-
 class Database
 {
-
     private $connection;
 
     public function __construct()
@@ -32,7 +30,6 @@ class Database
     {
         return $this->connection;
     }
-
     /**
      * ===========================
      * Definimos el metodo para cerrar la conexion

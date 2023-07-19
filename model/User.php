@@ -9,6 +9,9 @@ class User
     private $FirstName;
     protected $db;
 
+    public function User(){
+        
+    }
     public function __construct(PDO $connection) {
         $this->db = $connection;
 
@@ -57,6 +60,7 @@ public function getFirstName (){
     
         if ($cantidad > 0) {
             // Si el email ya existe, retornar false o lanzar un error
+            echo "Error";
             return false;
         } else {
             // Si el email no existe, realizar la inserción en la base de datos

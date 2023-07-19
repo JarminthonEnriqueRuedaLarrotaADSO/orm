@@ -17,7 +17,7 @@
         <div class="row">
             <h2 class="text-center mt-3" >Agregar Usuario</h2>
             <div class="col mt-5">                
-                <form  action="controlador/controlador.php"  method="POST">
+                <form  action="../controlador/controlador.php"  method="POST">
                 <label for="" class="form-label" >first name</label>
                 <input class="form-control" type="text" name="firstName">
                 <label for="" class="form-label">last name</label>
