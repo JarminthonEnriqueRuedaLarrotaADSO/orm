@@ -3,6 +3,9 @@
 class Book
 {
     protected $db;
+    // private ;
+    // private ;
+    // private ;
 
     public function __construct(
         PDO $connection

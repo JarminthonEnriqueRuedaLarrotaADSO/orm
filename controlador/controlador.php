@@ -31,13 +31,13 @@
         $lastName = $_POST["lastName"];
         $email = $_POST["email"];
         $documento = $_POST["documento"];
-    
-    
+        $id = $_POST["identificador"];
+
+        $userModel->setId($id);
         $userModel->setCc($documento);
         $userModel->setFirstName($firstName);
         $userModel->setLastName($lastName);
         $userModel->setEmail($email);
-    
     }
     
     $users = $userModel->getAll();
@@ -59,7 +59,7 @@
     if (!$inser) {
         header('Location:../vista/mostrarError.php');                 
     }else {
-        header('Location:../vista/mostrar.php');                 
+        header('Location:../vista/index.php');                 
     }
 
 

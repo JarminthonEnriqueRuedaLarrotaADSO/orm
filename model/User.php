@@ -3,6 +3,7 @@
 
 class User
 {
+    private $id;
     private $documento;
     private $lastName;
     private $email;
@@ -17,6 +18,13 @@ class User
 
     }
 //-----------------------------------------------getters and setters------------------------------------
+
+public function getId(){
+    return $this->id;
+}
+public function setId($id){
+    $this->id = $id;
+}
 public function getFirstName (){
     return $this->lastName;
     }
@@ -52,38 +60,43 @@ public function getFirstName (){
     }
 
     public function insertar() {
-        // Verificar si el email ya existe en la base de datos
-        $consultaCc = $this->db->prepare("SELECT COUNT(*) FROM users WHERE cc = :cedula");
-        $consultaCc->bindValue(':cedula', $this->documento);
-        $consultaCc->execute();
-        $cantidad = $consultaCc->fetchColumn();
+        // Verificar si la cedula se repite en el codigo con una consulta 
+        $consultaCc = $this->db->prepare("SELECT COUNT(*) FROM users WHERE cc = :cedula");//cuenta el número de filas que cumplen con la condición cc = :cedula (la cédula).
+        $consultaCc->bindValue(':cedula', $this->documento);//se le asigna el valor $this->documento a la variable ':cedula' en el bindValue, el cual recibe dos parametros, el primero seria la variable y el segundo el valor
+        $consultaCc->execute();// se ejecuta la consulta 
+        $cantidad = $consultaCc->fetchColumn();// se cuenta el numero de 
     
         if ($cantidad > 0) {
-            // Si el email ya existe, retornar false o lanzar un error
+            // Si las columnas son mayores a 1 significa que esta repetido por lo tanto entra en la condicion y retorna falso, por ende no se ejecuta la linea de codigo guardar
             echo "Error";
             return false;
-        } else {
-            // Si el email no existe, realizar la inserción en la base de datos
+        } else {            
+            //si lo anterior no se cumple significa que no hay ninguna cedula por lo tanot se ejecuta la consulta 
             $stm = $this->db->prepare("INSERT INTO users (firs_name, last_name, email, cc) VALUES (:nom, :apellido, :email, :cedula)");
-            $marcadores = [
-                ":nom" => $this->FirstName,
-                ":apellido" => $this->lastName,
-                ":email" => $this->email,
-                ":cedula" => $this->documento
-            ];
-            $stm->execute($marcadores);
-            return true;
+            //se crea la variable marcadores para ser utilizada, en la consulta por ende se le envia los marcadores 
+            $stm->bindValue(':nom', $this->FirstName);
+            $stm->bindValue(':apellido', $this->lastName);
+            $stm->bindValue(':email', $this->email);
+            $stm->bindValue(':cedula', $this->documento);            
+            //se ejecuta la consulta y se le envia la variable marcadores 
+            $stm->execute();
+            return true; //retorna true
         }
     }
     
-    // public function insertar() {
-    //     $stm = $this->db->prepare("INSERT INTO users (firs_name, last_name, email) VALUES (:nom, :apellido, :email)");
-    //     $marcadores = [
-    //         ":nom" => $this->FirstName,
-    //         ":apellido" => $this->lastName,
-    //         ":email" => $this->email
-    //     ];
-    //     $stm->execute($marcadores);
-    // }
+    public function Eliminar() {
+        $stm = $this->db->prepare("DELETE FROM users WHERE id=:id");
+        $stm->bindValue(':id', $this->id);        
+        $stm->execute();
+        header('Location: ../vista/index.php');
+    }
+
+    public function mostrarForm ($id){
+        $stm = $this->db->prepare("SELECT * FROM users WHERE id = :id");
+        $stm->bindValue('id', $id);
+        $stm->execute();
+        return $stm->fetchAll();
+        // header('Location: ../vista/vista1.php');
+    }
     
 }
