@@ -15,10 +15,12 @@ $connection = $database->getConnection();
 $userModel = new User($connection);
 
 
+
 if (isset($_POST['eliminar'])) {
-    echo "hola";
     $dato = $_POST['identificador'];
-    $eliminar = $userModel->Eliminar($dato);
+    echo $_POST['identificador'];
+    $userModel->setId($dato);
+    $eliminar = $userModel->Eliminar();
     
 }
 

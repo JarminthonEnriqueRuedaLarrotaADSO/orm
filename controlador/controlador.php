@@ -21,6 +21,7 @@
     $userModel = new User($connection);
     //Creamos la instancia del modelo libro y le pasamos la conexion a la base de datos
     $bookModel = new Book($connection);
+    
     /**
      * Listamos todos los usuarios
      */        
@@ -41,7 +42,9 @@
     }
     
     $users = $userModel->getAll();
+
     $inser = $userModel->insertar();
+    
     $userModel->insertar();
     /**
      * Listamos los libros

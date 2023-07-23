@@ -83,20 +83,29 @@ public function getFirstName (){
             return true; //retorna true
         }
     }
-    
     public function Eliminar() {
         $stm = $this->db->prepare("DELETE FROM users WHERE id=:id");
         $stm->bindValue(':id', $this->id);        
         $stm->execute();
-        header('Location: ../vista/index.php');
+        header('Location: ../vista/listar.php');
     }
-
-    public function mostrarForm ($id){
+    public function consulta (){
         $stm = $this->db->prepare("SELECT * FROM users WHERE id = :id");
-        $stm->bindValue('id', $id);
+        $stm->bindValue(':id',$this->id);
         $stm->execute();
         return $stm->fetchAll();
-        // header('Location: ../vista/vista1.php');
+        
     }
+    public function mostrarForm() {
+        $stm=$this->db->prepare('UPDATE users SET firs_name = :nom , last_name = :apellido, email= :email, cc = :cedula WHERE id = :id ');
+        $stm->bindValue(':nom', $this->FirstName);
+        $stm->bindValue(':apellido', $this->lastName);
+        $stm->bindValue(':email', $this->email);
+        $stm->bindValue(':cedula', $this->documento);
+        $stm->bindValue(':id',$this->id);  
+        $stm->execute();
+        header('Location:../vista/listar.php');
+    }   
     
+
 }

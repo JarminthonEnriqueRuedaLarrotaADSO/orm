@@ -1,23 +1,33 @@
 <?php
-
-// print_r($_POST);
-
 require_once('../model/User.php');
-
 require_once('../config/config.php');
-//Incluimos la clase conexion a la base de datos
 require_once('../libs/Database.php');
 
 $database   = new Database();
-//Llamamos el metodo conexion que es quien nos retorna la conexion a la base de datos
 $connection = $database->getConnection();
-//Creamos la instancia del modelo usuario y pasamos la conexion a la base de datos
 $userModel = new User($connection);
 
+$dato = $_POST['identificador'];
 
-if (isset($_POST['editar'])) {
-    $dato = $_POST['identificador'];
-     $userModel->mostrarForm($dato);    
+
+
+$userModel->setId($dato);    
+$actualizar = $userModel->consulta(); 
+include_once('../vista/editarFila.php');
+
+if (isset($_POST['envio_edit'])) {
+    $firstName = $_POST["firstName"];
+    $lastName = $_POST["lastName"];
+    $email = $_POST["email"];
+    $documento = $_POST["documento"];
+    $id = $_POST["identificador"];
+    //pasar datos a los metodos de acceso
+    $userModel->setId($id);
+    $userModel->setFirstName($firstName);
+    $userModel->setLastName($lastName);
+    $userModel->setEmail($email);
+    $userModel->setCc($documento);
+    $most = $userModel->mostrarForm();
 }
 
-
+?>
